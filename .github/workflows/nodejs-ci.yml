@@ -122,4 +122,3 @@ jobs:
                pm2 start dist/app.js --name nodejs-app
              fi &&
              pm2 save'
-```
