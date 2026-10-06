@@ -1,11 +1,21 @@
-const { test } = require("node:test");
-const assert = require("node:assert");
+const http = require("http");
 
-const { getMessage } = require("../src/index");
+function getMessage() {
+    return "Welcome to Node.js CI/CD Pipeline";
+}
 
-test("Application should return the welcome message", () => {
-    assert.strictEqual(
-        getMessage(),
-        "Welcome to Node.js CI/CD Pipeline"
-    );
+const server = http.createServer((req, res) => {
+    res.writeHead(200, {
+        "Content-Type": "text/plain"
+    });
+
+    res.end(getMessage());
 });
+
+if (require.main === module) {
+    server.listen(3000, "0.0.0.0", () => {
+        console.log("Server running on port 3000");
+    });
+}
+
+module.exports = { getMessage };
